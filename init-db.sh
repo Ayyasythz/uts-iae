@@ -6,6 +6,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
   CREATE DATABASE user_service;
   CREATE DATABASE product_service;
   CREATE DATABASE order_service;
+  CREATE DATABASE cart_service;
 EOSQL
 
 echo "Databases created successfully."
@@ -151,5 +152,42 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "order_service" <<-
 EOSQL
 
 echo "order_service database initialized."
+
+echo "Initializing cart_service database..."
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "cart_service" <<-EOSQL
+  -- Create cart table
+  CREATE TABLE IF NOT EXISTS carts (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL,
+      created_at TIMESTAMP NOT NULL,
+      updated_at TIMESTAMP NOT NULL
+  );
+
+  -- Create cart items table
+  CREATE TABLE IF NOT EXISTS cart_items (
+      id SERIAL PRIMARY KEY,
+      cart_id INTEGER NOT NULL,
+      product_id INTEGER NOT NULL,
+      quantity INTEGER NOT NULL,
+      FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE CASCADE
+  );
+
+  -- Create indexes
+  CREATE INDEX IF NOT EXISTS idx_carts_user_id ON carts(user_id);
+  CREATE INDEX IF NOT EXISTS idx_cart_items_cart_id ON cart_items(cart_id);
+  CREATE INDEX IF NOT EXISTS idx_cart_items_product_id ON cart_items(product_id);
+EOSQL
+
+echo "cart_service database initialized."
+
+# Apply the enhanced product service features
+echo "Enhancing product_service with additional features..."
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "product_service" -f /docker-entrypoint-initdb.d/product-service-enhanced.sql
+echo "product_service enhanced successfully."
+
+# Initialize cart service schema
+echo "Initializing cart_service database..."
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "cart_service" -f /docker-entrypoint-initdb.d/cart-service-schema.sql
+echo "cart_service initialized successfully."
 
 echo "All databases initialized successfully!"
