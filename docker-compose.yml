@@ -12,8 +12,10 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
-#      - ./product-service.sql:/docker-entrypoint-initdb.d/product-service-enhanced.sql
-#      - ./cart-service-schema.sql:/docker-entrypoint-initdb.d/cart-service-schema.sql
+      - ./product-service/db/init.sql:/docker-entrypoint-initdb.d/product-service-init.sql
+      - ./user-service/db/init.sql:/docker-entrypoint-initdb.d/user-service-init.sql
+      - ./order-service/db/init.sql:/docker-entrypoint-initdb.d/order-service-init.sql
+      - ./cart-service/db/init.sql:/docker-entrypoint-initdb.d/cart-service-init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s

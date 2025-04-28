@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3a572cab-8511-4e15-ac93-ac85aa10ca99" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/init-db.sh" beforeDir="false" afterPath="$PROJECT_DIR$/init-db.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/db/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/db/init.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -66,7 +66,7 @@ type Category struct {
 	Name          string     `json:"name"`
 	Description   string     `json:"description"`
 	ParentID      *int       `json:"parent_id"`
-	ImageURL      string     `json:"image_url,omitempty"`
+	ImageURL      *string    `json:"image_url,omitempty"` // Changed to *string
 	CreatedAt     time.Time  `json:"created_at"`
 	UpdatedAt     time.Time  `json:"updated_at"`
 	SubCategories []Category `json:"sub_categories,omitempty"`
